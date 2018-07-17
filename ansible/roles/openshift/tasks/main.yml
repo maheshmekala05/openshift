@@ -1,0 +1,17 @@
+- name: Download openshift
+  get_url:
+    url: https://github.com/openshift/origin/releases/download/{{ openshift_version }}/{{ openshift_file_name }}.tar.gz
+    dest: /tmp/openshift-client.tar.gz
+
+- name: Untar openshift
+  unarchive:
+    src: /tmp/openshift-client.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy executable
+  copy:
+    src: /tmp/{{ openshift_file_name }}/oc
+    dest: /usr/bin/
+    mode: 0755
+    remote_src: yes
